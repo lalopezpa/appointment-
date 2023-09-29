@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import Appointments from "./components/Appointments/Appointments";
+import Medicaments from "./components/Medicaments/Medicaments";
+import "bootstrap/dist/css/bootstrap.min.css"; // Agrega esta línea para importar los estilos de Bootstrap
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container mt-4">
+        <nav>
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <Link to="/agendar" className="nav-link">
+                Pedir Citas Médicas
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/medicamentos" className="nav-link">
+                Medicamentos
+              </Link>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route path="/agendar" element={<Appointments />} />
+          <Route path="/medicamentos" element={<Medicaments />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

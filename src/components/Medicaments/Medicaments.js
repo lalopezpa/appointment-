@@ -1,0 +1,50 @@
+import React, { useState } from 'react';
+
+function Medicaments() {
+  const [medicamento, setMedicamento] = useState('');
+  const [resultadoBusqueda, setResultadoBusqueda] = useState('');
+
+  const buscarMedicamento = () => {
+    // Hacer la solicitud GET al endpoint de medicamentos en el backend
+    fetch(`http://localhost:8000/medicaments/disponibilidad/${medicamento}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          const detalles = `Nombre: ${data.name}, Marca: ${data.brand}, Cantidad Disponible: ${data.avaliable}`;
+          setResultadoBusqueda(`Medicamento encontrado: ${detalles}`);
+        } else {
+          setResultadoBusqueda('Medicamento no encontrado');
+        }
+      })
+      .catch(error => console.error('Error fetching medicaments:', error));
+  };
+
+  return (
+    <div className="container mt-4 text-center">
+      <h2>Medicamentos</h2>
+      <form className="mb-3">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Nombre del Medicamento"
+            value={medicamento}
+            onChange={(e) => setMedicamento(e.target.value)}
+          />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={buscarMedicamento}
+          >
+            Consultar Disponibilidad
+          </button>
+        </div>
+      </form>
+      <div>
+        {resultadoBusqueda && <p>{resultadoBusqueda}</p>}
+      </div>
+    </div>
+  );
+}
+
+export default Medicaments;
