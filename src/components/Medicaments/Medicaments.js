@@ -6,7 +6,7 @@ function Medicaments() {
 
   const buscarMedicamento = () => {
     // Hacer la solicitud GET al endpoint de medicamentos en el backend
-    fetch(`http://localhost:8000/medicaments/disponibilidad/${medicamento}`)
+    fetch(`http://localhost:8000/ips/1/medicaments/${medicamento}`)
       .then(response => response.json())
       .then(data => {
         if (data) {
