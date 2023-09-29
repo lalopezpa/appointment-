@@ -6,7 +6,17 @@ from models import patients, doctors, schedules, Base, services, appointments, i
 
 app = FastAPI()
 
-engine = create_engine("postgresql+psycopg2://pruebas:pruebas@postgres:5432/rasi", echo=True)
+db_user = "admin"        
+db_pass = "password"     
+db_host = "postgres"    
+db_port = 5432         
+db_name = "rasi"         
+
+
+engine = create_engine(
+    f"postgresql+psycopg://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}",
+    echo=True
+)
 
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
